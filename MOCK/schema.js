@@ -3,7 +3,45 @@ const SCHEMA = {
     "label": "Section container",
     "type": "section-container",
     "hidden": false,
+    "tracking": {
+        "utm_source": "mock_config_source",
+        "utm_medium": "",
+        "utm_campaign": "",
+        "utm_subsource": "",
+        "articulo": "",
+        "nevento": "Mock Event",
+        "fevento": ""
+    },
     "children": [
+        {
+            "id": "mock_hidden_event_id",
+            "type": "hidden",
+            "defaultValue": "EVT-MOCK-001",
+            "payload": {
+                "name": "event_id"
+            }
+        },
+        {
+            "id": "mock_ui_hidden_source",
+            "label": "UI hidden source",
+            "type": "text",
+            "defaultValue": "hidden-from-ui",
+            "ui": {
+                "hidden": true
+            },
+            "payload": {
+                "name": "ui_hidden_source"
+            }
+        },
+        {
+            "id": "mock_internal_note",
+            "label": "Internal note excluded from payload",
+            "type": "text",
+            "defaultValue": "internal-only",
+            "payload": {
+                "include": false
+            }
+        },
         {
             "id": "birthday",
             "label": "Birthday",
@@ -28,7 +66,7 @@ const SCHEMA = {
                 },
                 {
                     "type": "condition",
-                    "condition": "6 > 7",
+                    "condition": false,
                     "message": "6 > 6"
                 }
             ]
@@ -177,7 +215,11 @@ const SCHEMA = {
                                     "action": "setValue",
                                     "target": "credit_limit",
                                     "value": 5000,
-                                    "condition": "{{customer_type}} === 'PN'"
+                                    "condition": {
+                                        "field": "customer_type",
+                                        "operator": "equals",
+                                        "value": "PN"
+                                    }
                                 }
                             ],
                             "validations": [
@@ -195,7 +237,7 @@ const SCHEMA = {
                             "defaultValue": "",
                             "class": "col-6",
                             "dataSource": {
-                                "url": "/MOCK/countries.json",
+                                "url": "./MOCK/countries.json",
                                 "map": {
                                     "value": "cca2",
                                     "label": "name.common"
@@ -210,7 +252,7 @@ const SCHEMA = {
                             "class": "col-6",
                             "dependsOn": "country_origin",
                             "dataSource": {
-                                "url": "/MOCK/cities.json?iso={{country_origin}}",
+                                "url": "./MOCK/cities.json?iso={{country_origin}}",
                                 "root": "data.items",
                                 "map": {
                                     "value": "city_id",
@@ -226,7 +268,11 @@ const SCHEMA = {
                             "validations": [
                                 {
                                     "type": "condition",
-                                    "condition": "Number( {{loan_amount}} ) <= Number( {{credit_limit}} )",
+                                    "condition": {
+                                        "field": "loan_amount",
+                                        "operator": "lessThanOrEqualField",
+                                        "otherField": "credit_limit"
+                                    },
                                     "message": "The amount cannot exceed your credit limit"
                                 },
                                 {
@@ -251,7 +297,11 @@ const SCHEMA = {
                             "validations": [
                                 {
                                     "type": "requiredIf",
-                                    "condition": "{{customer_type}} === 'EP'",
+                                    "condition": {
+                                        "field": "customer_type",
+                                        "operator": "equals",
+                                        "value": "EP"
+                                    },
                                     "message": "Credit limit is required when Company is selected"
                                 }
                             ]

@@ -10,6 +10,7 @@ const DynamicFormPlugin = {
         app.component("radio", DynamicRadio);
         app.component("checkbox", DynamicCheckbox);
         app.component("date", DynamicDate);
+        app.component("hidden", DynamicHidden);
 
         const model = Vue.reactive({});
         app.provide("model", model);

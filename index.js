@@ -5,18 +5,23 @@ const vueApp = createApp({
     const schema = SCHEMA;
 
     const model = Vue.inject("model");
+    const payload = ref(null);
 
     function submit() {
-      console.log("SUBMIT VALUES:", structuredClone(Vue.toRaw(model)));
-      alert("Submitted! Check console for values.");
+      const nextPayload = buildSubmitPayload(schema, Vue.toRaw(model));
+      payload.value = nextPayload;
+      console.log("MOCK SUBMIT PAYLOAD:", nextPayload);
+      alert("Mock submit ready. Check console or the payload preview.");
     }
 
     const prettyValues = computed(() => JSON.stringify(model, null, 2));
+    const prettyPayload = computed(() => JSON.stringify(payload.value, null, 2));
 
     return {
       schema,
       submit,
       prettyValues,
+      prettyPayload,
     };
   },
   template: `
@@ -27,6 +32,8 @@ const vueApp = createApp({
         </div>
 
         <pre>{{ prettyValues }}</pre>
+
+        <pre v-if="prettyPayload">{{ prettyPayload }}</pre>
       `,
 });
 

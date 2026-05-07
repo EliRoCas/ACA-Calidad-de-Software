@@ -1,7 +1,7 @@
 const DynamicRadio = {
   components: { DynamicError },
   template: `
-        <div :class="['field-group','col-12', field.class || '', field.hidden ? 'hidden' : '']">
+        <div :class="['field-group','col-12', field.class || '', isHidden ? 'hidden' : '']">
           <label v-if="showLabel && field.label">{{ field.label }}</label>
 
           <div class="custom-input">

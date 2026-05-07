@@ -1,7 +1,7 @@
 const DynamicSectionContainer = {
   props: ["field"],
   template: `
-        <div :class="['dynamic-container','col-12', field.class || '', field.hidden ? 'hidden' : '']">
+        <div :class="['dynamic-container','col-12', field.class || '', (field.hidden || field.ui?.hidden) ? 'hidden' : '']">
           <h2 v-if="field.label" class="col-12">{{ field.label }}</h2>
 
           <component
