@@ -29,8 +29,37 @@ function evaluateCondition(condition, allValues) {
   }
 }
 
+function applyTriggers(field, model) {
+  if (!Array.isArray(field.triggers)) {
+    return;
+  }
+
+  field.triggers.forEach((trigger) => {
+    if (trigger.action !== "setValue") {
+      return;
+    }
+
+    const shouldApply = evaluateCondition(trigger.condition ?? "true", model);
+
+    if (!shouldApply) {
+      return;
+    }
+
+    if (!trigger.target) {
+      console.warn("Trigger action 'setValue' requires a target field id");
+      return;
+    }
+
+    model[trigger.target] = trigger.value;
+  });
+}
+
 const loadDataSource = async (field, model) => {
   if (field.dataSource /*&& !field.dependsOn*/) {
+    if (field.dependsOn && isEmptyValue(model?.[field.dependsOn])) {
+      return [];
+    }
+
     const url = resolveTemplate(field.dataSource.url, model);
     const response = await fetch(url);
 
