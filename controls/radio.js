@@ -8,7 +8,7 @@ const DynamicRadio = {
             <label v-for="opt in mergedOptions" :key="String(opt.value)">
               <input
                 type="radio"
-                :value="String(opt.value)"
+                :value="opt.value"
                 v-model="model[field.id]"
                 :disabled="field.readonly"
               />

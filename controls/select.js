@@ -10,7 +10,7 @@ const DynamicSelect = {
             :disabled="field.readonly"
           >
             <option value=""></option>
-            <option v-for="opt in mergedOptions" :key="String(opt.value)" :value="String(opt.value)">
+            <option v-for="opt in mergedOptions" :key="String(opt.value)" :value="opt.value">
               {{ opt.label }}
             </option>
           </select>
