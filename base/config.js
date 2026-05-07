@@ -11,7 +11,7 @@ const DynamicFormPlugin = {
         app.component("checkbox", DynamicCheckbox);
         app.component("date", DynamicDate);
 
-        const model = reactive({});
+        const model = Vue.reactive({});
         app.provide("model", model);
 
         // app.config.globalProperties.$model = model;
