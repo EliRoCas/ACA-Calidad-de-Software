@@ -1,0 +1,18 @@
+{
+    "data": {
+        "items": [
+            {
+                "city_id": 1,
+                "city_name": "Bogota"
+            },
+            {
+                "city_id": 2,
+                "city_name": "Medellin"
+            },
+            {
+                "city_id": 2,
+                "city_name": "Cali"
+            }
+        ]
+    }
+}
