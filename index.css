@@ -1,0 +1,196 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Roboto, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+    background: #f7f7fb;
+    color: #1f2937;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+button {
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+}
+
+button.secondary {
+    background: #111827;
+}
+
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+pre {
+    background: #0b1020;
+    color: #d1d5db;
+    padding: 12px;
+    border-radius: 12px;
+    overflow: auto;
+    max-height: 320px;
+}
+
+.dynamic-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    padding: .5rem;
+    overflow: auto;
+}
+
+.field-group {
+    gap: .2rem;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.field-group:focus-within {
+    color: #007BFF;
+}
+
+.field-group label {
+    font-weight: 900;
+}
+
+.field-group input,
+.field-group select {
+    border-radius: .5rem;
+    border: solid thin gray;
+    padding: .5rem;
+    background: white;
+}
+
+.field-group .custom-input {
+    display: flex;
+    width: 100%;
+    border-radius: .5rem;
+    border: solid thin gray;
+    align-items: center;
+    padding: 0 .5rem;
+    overflow: hidden;
+    background: white;
+}
+
+.field-group .custom-input:focus-within {
+    border: solid 2px #007BFF;
+}
+
+.field-group .custom-input input,
+.field-group .custom-input select {
+    border: none;
+    flex: 1;
+    outline: none;
+    padding: .6rem .4rem;
+    background: transparent;
+}
+
+.field-group:has(input[type="checkbox"]) {
+    flex-direction: row-reverse;
+    justify-content: start;
+    align-items: center;
+    gap: .75rem;
+}
+
+.field-group:has(input[type="checkbox"]) .custom-input {
+    border: none;
+    width: auto;
+    padding: 0;
+}
+
+.field-group:has(input[type="radio"]) .custom-input {
+    margin-top: .5rem;
+    border: none;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .5rem;
+    padding: 0;
+}
+
+.dynamic-error {
+    color: red;
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    font-size: .8em;
+}
+
+.hidden {
+    display: none;
+}
+
+.border-red {
+    border: solid 2px red;
+    padding: .5rem;
+    border-radius: 1rem;
+}
+
+/* grid helpers */
+.col-12 {
+    grid-column: span 12;
+}
+
+.col-6 {
+    grid-column: span 6;
+}
+
+.col-4 {
+    grid-column: span 4;
+}
+
+.col-3 {
+    grid-column: span 3;
+}
+
+.col-2 {
+    grid-column: span 2;
+}
+
+.col-1 {
+    grid-column: span 1;
+}
+
+@media (min-width: 600px) {
+    .col-md-12 {
+        grid-column: span 12;
+    }
+
+    .col-md-6 {
+        grid-column: span 6;
+    }
+
+    .col-md-4 {
+        grid-column: span 4;
+    }
+
+    .col-md-3 {
+        grid-column: span 3;
+    }
+
+    .col-md-2 {
+        grid-column: span 2;
+    }
+
+    .col-md-1 {
+        grid-column: span 1;
+    }
+}

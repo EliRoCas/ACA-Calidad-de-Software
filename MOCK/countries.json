@@ -1,0 +1,26 @@
+[
+    {
+        "cca2": "CO",
+        "name": {
+            "common": "Colombia"
+        }
+    },
+    {
+        "cca2": "US",
+        "name": {
+            "common": "United States"
+        }
+    },
+    {
+        "cca2": "MX",
+        "name": {
+            "common": "Mexico"
+        }
+    },
+    {
+        "cca2": "ES",
+        "name": {
+            "common": "Spain"
+        }
+    }
+]
