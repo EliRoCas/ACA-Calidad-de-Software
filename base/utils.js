@@ -6,7 +6,7 @@ function resolvePath(obj, path) {
 function evaluateCondition(condition, allValues) {
     let evalStr = String(condition ?? "true");
     Object.entries(allValues).forEach(([k, v]) => {
-        evalStr = evalStr.replace(new RegExp(`{{${k}}}`, "g"), JSON.stringify(v));
+        evalStr = evalStr.replaceAll(`{{${k}}}`, JSON.stringify(v));
     });
     try { return !!eval(evalStr); } catch { return false; }
 }

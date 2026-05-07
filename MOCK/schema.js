@@ -198,8 +198,7 @@ const SCHEMA = {
                                 "url": "/MOCK/countries.json",
                                 "map": {
                                     "value": "cca2",
-                                    "label": "name.common",
-                                    "root": ""
+                                    "label": "name.common"
                                 }
                             }
                         },
@@ -215,8 +214,7 @@ const SCHEMA = {
                                 "root": "data.items",
                                 "map": {
                                     "value": "city_id",
-                                    "label": "city_name",
-                                    "root": "data.items"
+                                    "label": "city_name"
                                 }
                             }
                         },
