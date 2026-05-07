@@ -6,7 +6,7 @@ const customControl = {
 
         const dataSource = Vue.ref([]);
 
-        loadDataSource(props.field).then(result => {
+        loadDataSource(props.field, model).then(result => {
             dataSource.value.length = 0;
             dataSource.value.push(...(result || []));
         });
