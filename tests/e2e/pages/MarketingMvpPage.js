@@ -4,6 +4,7 @@ const { validLead } = require("../fixtures/marketing-mvp.fixture");
 class MarketingMvpPage {
   constructor(page) {
     this.page = page;
+    this.googleSubmissions = [];
   }
 
   field(id) {
@@ -24,6 +25,16 @@ class MarketingMvpPage {
     }
 
     await this.page.route("https://docs.google.com/forms/**", async (route) => {
+      const request = route.request();
+      const postData = request.postData() || "";
+
+      this.googleSubmissions.push({
+        method: request.method(),
+        url: request.url(),
+        postData,
+        values: Object.fromEntries(new URLSearchParams(postData)),
+      });
+
       await route.fulfill({ status: 200, body: "" });
     });
   }
@@ -140,6 +151,10 @@ class MarketingMvpPage {
     for (const [key, value] of Object.entries(expectedValues)) {
       await expect(payload).toContainText(`"${key}": "${value}"`);
     }
+  }
+
+  lastGoogleFormSubmission() {
+    return this.googleSubmissions.at(-1);
   }
 }
 
