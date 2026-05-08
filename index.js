@@ -4,16 +4,26 @@ const vueApp = createApp({
   setup() {
     const schema = SCHEMA;
 
+    Vue.provide("schema", schema);
+
     const model = Vue.inject("model");
     const validationState = Vue.inject("validationState");
     const payload = ref(null);
     const submitErrors = ref([]);
     const isSubmitting = ref(false);
     const submitStatus = ref("");
+    const isAuthorizationAccepted = computed(
+      () => model.data_authorization === true,
+    );
 
     async function submit() {
       validationState.submitAttempted = true;
       submitErrors.value = getSubmitErrors(schema, Vue.toRaw(model));
+
+      if (!isAuthorizationAccepted.value) {
+        submitStatus.value = "Debes autorizar el tratamiento de datos personales.";
+        return;
+      }
 
       if (submitErrors.value.length > 0) {
         submitStatus.value = "Revisa los campos obligatorios antes de enviar.";
@@ -65,6 +75,7 @@ const vueApp = createApp({
       submit,
       submitErrors,
       isSubmitting,
+      isAuthorizationAccepted,
       submitStatus,
       prettyValues,
       prettyPayload,
@@ -74,7 +85,7 @@ const vueApp = createApp({
         <DynamicSectionContainer :field="schema" />
 
         <div class="actions">
-            <button @click="submit" :disabled="isSubmitting">
+            <button @click="submit" :disabled="isSubmitting || !isAuthorizationAccepted">
               {{ isSubmitting ? 'Enviando...' : 'Enviar MVP' }}
             </button>
         </div>

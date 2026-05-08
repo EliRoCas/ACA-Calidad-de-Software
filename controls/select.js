@@ -11,7 +11,7 @@ const DynamicSelect = {
             @change="markTouched"
             @blur="markTouched"
           >
-            <option value=""></option>
+            <option value="" disabled>{{ field.placeholder || 'Selecciona' }}</option>
             <option v-for="opt in mergedOptions" :key="String(opt.value)" :value="opt.value">
               {{ opt.label }}
             </option>

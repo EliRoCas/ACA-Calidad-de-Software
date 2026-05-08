@@ -1,0 +1,16 @@
+{
+  "name": "formulario-marketing-mvp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start:test": "node tests/support/static-server.cjs",
+    "test:unit": "node tests/unit/sanitize-event-date.test.js",
+    "test:e2e": "playwright test",
+    "test:e2e:mvp": "playwright test tests/e2e/marketing-mvp.spec.js --project=chromium",
+    "test:e2e:prod": "node -e \"process.env.TEST_ENV='prod'; process.env.MVP_GOOGLE_SUBMIT_MODE='real'; const { spawnSync } = require('node:child_process'); const result = spawnSync(process.platform === 'win32' ? 'cmd' : 'npx', process.platform === 'win32' ? ['/c', 'npx', 'playwright', 'test', 'tests/e2e/marketing-mvp.prod-smoke.spec.js', '--project=chromium'] : ['playwright', 'test', 'tests/e2e/marketing-mvp.prod-smoke.spec.js', '--project=chromium'], { stdio: 'inherit', env: process.env }); process.exit(result.status ?? 1);\"",
+    "test:all": "npm run test:unit && npm run test:e2e:mvp"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2"
+  }
+}

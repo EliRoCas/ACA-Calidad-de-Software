@@ -2,7 +2,11 @@ const DynamicHidden = {
   props: ["field"],
   setup(props) {
     const model = Vue.inject("model");
-    model[props.field.id] = props.field.defaultValue ?? "";
+    const schema = Vue.inject("schema");
+
+    if (model[props.field.id] === undefined) {
+      model[props.field.id] = resolveInitialFieldValue(props.field, model, schema);
+    }
 
     return { model };
   },

@@ -66,4 +66,52 @@ const Validations = {
 
     return undefined;
   },
+  personName: (field, validation, model) => {
+    const value = model[field.id];
+
+    if (isEmptyValue(value)) return undefined;
+
+    if (!isValidPersonName(value)) {
+      return { type: "personName", message: validation.message };
+    }
+
+    return undefined;
+  },
+  documentByType: (field, validation, model) => {
+    const value = model[field.id];
+    const typeField = validation.typeField ?? validation.params?.typeField ?? "tipo_doc";
+    const docType = resolvePath(model, typeField);
+
+    if (isEmptyValue(value)) return undefined;
+
+    if (!isValidDocumentValue(value, docType)) {
+      return { type: "documentByType", message: validation.message };
+    }
+
+    return undefined;
+  },
+  localPhone: (field, validation, model) => {
+    const value = model[field.id];
+    const prefixField = validation.prefixField ?? validation.params?.prefixField ?? "prefijoCel";
+    const prefix = resolvePath(model, prefixField);
+
+    if (isEmptyValue(value)) return undefined;
+
+    if (!isValidLocalPhone(value, prefix)) {
+      return { type: "localPhone", message: validation.message };
+    }
+
+    return undefined;
+  },
+  emailStrict: (field, validation, model) => {
+    const value = model[field.id];
+
+    if (isEmptyValue(value)) return undefined;
+
+    if (!isValidEmailStrict(value)) {
+      return { type: "emailStrict", message: validation.message };
+    }
+
+    return undefined;
+  },
 };

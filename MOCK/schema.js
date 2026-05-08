@@ -70,6 +70,11 @@ const SCHEMA = {
       id: "fevento",
       type: "hidden",
       defaultValue: "",
+      defaultFrom: {
+        type: "eventDate",
+        configPath: "tracking.fevento",
+      },
+      sanitize: "eventDate",
       payload: { name: "fevento" },
     },
     {
@@ -85,7 +90,14 @@ const SCHEMA = {
       order: 10,
       class: "col-6",
       payload: { name: "first_name" },
-      validations: [{ type: "required", message: "El nombre es obligatorio" }],
+      sanitize: "personName",
+      validations: [
+        { type: "required", message: "El nombre es obligatorio" },
+        {
+          type: "personName",
+          message: "Ingresa un nombre valido, solo letras y espacios",
+        },
+      ],
     },
     {
       id: "last_name",
@@ -94,7 +106,14 @@ const SCHEMA = {
       order: 20,
       class: "col-6",
       payload: { name: "last_name" },
-      validations: [{ type: "required", message: "El apellido es obligatorio" }],
+      sanitize: "personName",
+      validations: [
+        { type: "required", message: "El apellido es obligatorio" },
+        {
+          type: "personName",
+          message: "Ingresa un apellido valido, solo letras y espacios",
+        },
+      ],
     },
     {
       id: "tipo_doc",
@@ -122,8 +141,14 @@ const SCHEMA = {
       order: 40,
       class: "col-6",
       payload: { name: "numero_doc" },
+      sanitize: { type: "documentByType", typeField: "tipo_doc" },
       validations: [
         { type: "required", message: "El numero de documento es obligatorio" },
+        {
+          type: "documentByType",
+          typeField: "tipo_doc",
+          message: "Ingresa un numero de documento valido",
+        },
       ],
     },
     {
@@ -150,7 +175,15 @@ const SCHEMA = {
       order: 60,
       class: "col-8",
       payload: { name: "mobile" },
-      validations: [{ type: "required", message: "El telefono es obligatorio" }],
+      sanitize: { type: "localPhone", prefixField: "prefijoCel" },
+      validations: [
+        { type: "required", message: "El telefono es obligatorio" },
+        {
+          type: "localPhone",
+          prefixField: "prefijoCel",
+          message: "Ingresa un telefono valido de 10 digitos, sin prefijo",
+        },
+      ],
     },
     {
       id: "email",
@@ -159,7 +192,11 @@ const SCHEMA = {
       order: 70,
       class: "col-12",
       payload: { name: "email" },
-      validations: [{ type: "required", message: "El email es obligatorio" }],
+      sanitize: "email",
+      validations: [
+        { type: "required", message: "El email es obligatorio" },
+        { type: "emailStrict", message: "Ingresa un email valido" },
+      ],
     },
     {
       id: "country_residence",
@@ -275,12 +312,8 @@ const SCHEMA = {
       class: "col-12",
       payload: { name: "nivelacademico" },
       dataSource: {
-        url: "./MOCK/JSON/academic_levels_mvp.json",
-        root: "data.items",
-        map: {
-          value: "level_id",
-          label: "level_name",
-        },
+        url: "./MOCK/JSON/programas.json",
+        transform: "academicLevels",
       },
       validations: [
         { type: "required", message: "Selecciona un nivel academico" },
@@ -293,14 +326,16 @@ const SCHEMA = {
       order: 130,
       class: "col-12",
       dependsOn: "nivelacademico",
+      ui: {
+        visibleWhen: {
+          operator: "allExist",
+          fields: ["nivelacademico"],
+        },
+      },
       payload: { name: "facultad" },
       dataSource: {
-        url: "./MOCK/JSON/faculties_{{nivelacademico}}.json",
-        root: "data.items",
-        map: {
-          value: "faculty_id",
-          label: "faculty_name",
-        },
+        url: "./MOCK/JSON/programas.json",
+        transform: "academicFaculties",
       },
       validations: [{ type: "required", message: "Selecciona una facultad" }],
     },
@@ -311,14 +346,16 @@ const SCHEMA = {
       order: 140,
       class: "col-12",
       dependsOn: ["nivelacademico", "facultad"],
+      ui: {
+        visibleWhen: {
+          operator: "allExist",
+          fields: ["nivelacademico", "facultad"],
+        },
+      },
       payload: { name: "programa_principal" },
       dataSource: {
-        url: "./MOCK/JSON/programs_{{nivelacademico}}_{{facultad}}.json",
-        root: "data.items",
-        map: {
-          value: "program_id",
-          label: "program_name",
-        },
+        url: "./MOCK/JSON/programas.json",
+        transform: "academicPrograms",
       },
       validations: [{ type: "required", message: "Selecciona un programa" }],
     },
@@ -329,14 +366,16 @@ const SCHEMA = {
       order: 150,
       class: "col-12",
       dependsOn: "nivelacademico",
+      ui: {
+        visibleWhen: {
+          operator: "allExist",
+          fields: ["nivelacademico", "facultad", "programa_principal"],
+        },
+      },
       payload: { name: "periodo_esperado" },
       dataSource: {
-        url: "./MOCK/JSON/periods_{{nivelacademico}}.json",
-        root: "data.items",
-        map: {
-          value: "period_id",
-          label: "period_name",
-        },
+        url: "./MOCK/JSON/periodos.json",
+        transform: "academicPeriods",
       },
       validations: [
         { type: "required", message: "Selecciona un periodo esperado" },

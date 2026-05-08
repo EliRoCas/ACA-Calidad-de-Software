@@ -2,8 +2,12 @@ const customControl = {
   props: ["field", "showLabel"],
   setup(props) {
     const model = Vue.inject("model");
+    const schema = Vue.inject("schema");
     const validationState = Vue.inject("validationState");
-    model[props.field.id] = props.field.defaultValue ?? "";
+
+    if (model[props.field.id] === undefined) {
+      model[props.field.id] = resolveInitialFieldValue(props.field, model, schema);
+    }
 
     const dataSource = Vue.ref([]);
     const isHidden = Vue.computed(() => isFieldHidden(props.field, model));
@@ -28,9 +32,23 @@ const customControl = {
       ...dataSource.value,
     ]);
 
-    const markTouched = () => {
-      if (!validationState) return;
-      validationState.touched[props.field.id] = true;
+    const markTouched = (event) => {
+      if (validationState) {
+        validationState.touched[props.field.id] = true;
+      }
+
+      const target = event?.target;
+
+      if (!target || target.type === "checkbox" || target.type === "radio") {
+        return;
+      }
+
+      const sanitizedValue = sanitizeFieldValue(props.field, target.value, model);
+
+      if (sanitizedValue !== target.value) {
+        target.value = sanitizedValue;
+        model[props.field.id] = sanitizedValue;
+      }
     };
 
     const refreshDataSource = async () => {
