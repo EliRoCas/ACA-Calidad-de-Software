@@ -3,7 +3,9 @@ const { defineConfig, devices } = require("@playwright/test");
 const isProd = process.env.TEST_ENV === "prod";
 const localBaseURL = process.env.MVP_BASE_URL || "http://127.0.0.1:4173";
 const baseURL = isProd ? process.env.MVP_PROD_URL || localBaseURL : localBaseURL;
-const shouldStartLocalServer = !isProd || !process.env.MVP_PROD_URL;
+const shouldStartLocalServer =
+  !isProd ||
+  (process.env.MVP_PROD_SMOKE_ENABLED === "true" && !process.env.MVP_PROD_URL);
 
 module.exports = defineConfig({
   testDir: "./tests/e2e",
