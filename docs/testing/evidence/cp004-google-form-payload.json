@@ -1,0 +1,28 @@
+{
+  "endpoint": "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfw40ns2QRcxUkOCcr_TLcW1asygUr9yENC5wKubVRAxWZHSg/formResponse",
+  "method": "POST",
+  "values": {
+    "entry.80860134": "Ana",
+    "entry.202371310": "Pérez",
+    "entry.421600673": "CC",
+    "entry.343354658": "123456789",
+    "entry.1455277869": "ana.perez@test.com",
+    "entry.1157769341": "57",
+    "entry.1315389908": "3001234567",
+    "entry.2050709377": "COL",
+    "entry.2099415078": "BOG",
+    "entry.338292013": "11001",
+    "entry.1595196505": "Aspirante",
+    "entry.13819069": "PREG",
+    "entry.935513833": "Ingeniería",
+    "entry.338019176": "ISIST",
+    "entry.1914126671": "PREG2630",
+    "entry.1520118521": "source",
+    "entry.1595817695": "subsource",
+    "entry.581608949": "medium",
+    "entry.1956432705": "campaign",
+    "entry.1760775936": "11/05/2026, 09:00 a. m.",
+    "entry.2113694561": "Evento CP-004"
+  },
+  "note": "data_authorization exists in the internal payload but has no entry.* mapping configured in MOCK/schema.js."
+}
