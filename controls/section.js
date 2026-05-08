@@ -1,7 +1,13 @@
 const DynamicSectionContainer = {
   props: ["field"],
+  setup(props) {
+    const model = Vue.inject("model");
+    const isHidden = Vue.computed(() => isFieldHidden(props.field, model));
+
+    return { isHidden };
+  },
   template: `
-        <div :class="['dynamic-container','col-12', field.class || '', (field.hidden || field.ui?.hidden) ? 'hidden' : '']">
+        <div :class="['dynamic-container','col-12', field.class || '', isHidden ? 'hidden' : '']">
           <h2 v-if="field.label" class="col-12">{{ field.label }}</h2>
 
           <component

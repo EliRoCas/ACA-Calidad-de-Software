@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "department_id": "BOG", "department_name": "Bogota D.C." },
+      { "department_id": "ANT", "department_name": "Antioquia" },
+      { "department_id": "VAC", "department_name": "Valle del Cauca" }
+    ]
+  }
+}

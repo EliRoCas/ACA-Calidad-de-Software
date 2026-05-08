@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "faculty_id": "Ingenieria", "faculty_name": "Ingenieria" },
+      { "faculty_id": "CEA", "faculty_name": "Ciencias Economicas y Administrativas" },
+      { "faculty_id": "Educacion", "faculty_name": "Educacion" }
+    ]
+  }
+}

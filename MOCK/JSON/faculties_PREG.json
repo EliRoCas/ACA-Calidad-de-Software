@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "faculty_id": "Ingenieria", "faculty_name": "Ingenieria" },
+      { "faculty_id": "Ciencias", "faculty_name": "Ciencias" },
+      { "faculty_id": "Artes", "faculty_name": "Artes" }
+    ]
+  }
+}

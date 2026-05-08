@@ -1,0 +1,8 @@
+{
+  "data": {
+    "items": [
+      { "level_id": "PREG", "level_name": "Pregrado" },
+      { "level_id": "GRAD", "level_name": "Posgrado" }
+    ]
+  }
+}

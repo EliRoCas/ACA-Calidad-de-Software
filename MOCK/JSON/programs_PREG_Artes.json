@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "program_id": "ARTVI", "program_name": "Artes Visuales" },
+      { "program_id": "ARESC", "program_name": "Artes Escenicas" },
+      { "program_id": "EMSCL", "program_name": "Estudios Musicales" }
+    ]
+  }
+}

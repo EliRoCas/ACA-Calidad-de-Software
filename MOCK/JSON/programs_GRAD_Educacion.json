@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "program_id": "MEDUC", "program_name": "Maestria en Educacion" },
+      { "program_id": "MEICI", "program_name": "Maestria en Educacion para la Innovacion" },
+      { "program_id": "ELIGS", "program_name": "Especializacion en Liderazgo para la Gestion Social" }
+    ]
+  }
+}

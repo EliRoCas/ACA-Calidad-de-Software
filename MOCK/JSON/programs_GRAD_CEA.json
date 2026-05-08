@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "program_id": "MADMI", "program_name": "Maestria en Administracion" },
+      { "program_id": "MECON", "program_name": "Maestria en Economia" },
+      { "program_id": "SGFIN", "program_name": "Especializacion en Gerencia Financiera" }
+    ]
+  }
+}

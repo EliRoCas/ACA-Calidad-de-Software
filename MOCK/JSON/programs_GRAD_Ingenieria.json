@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "program_id": "MINSC", "program_name": "Maestria en Ingenieria de Sistemas y Computacion" },
+      { "program_id": "AESOF", "program_name": "Especializacion en Arquitectura Empresarial de Software" },
+      { "program_id": "DING", "program_name": "Doctorado en Ingenieria" }
+    ]
+  }
+}

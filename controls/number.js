@@ -1,7 +1,7 @@
 const DynamicNumber = {
   components: { DynamicError },
   template: `
-        <div :class="['field-group','col-12', field.class || '', isHidden ? 'hidden' : '']">
+        <div :class="['field-group','col-12', field.class || '', controlClasses, isHidden ? 'hidden' : '']">
           <label v-if="showLabel && field.label" :for="field.id">{{ field.label }}</label>
 
           <div class="custom-input">
@@ -11,11 +11,13 @@ const DynamicNumber = {
               :id="field.id"
               v-model.number="model[field.id]"
               :disabled="field.readonly"
+              @input="markTouched"
+              @blur="markTouched"
             />
             <span v-if="field.format" class="end">{{ field.format }}</span>
           </div>
 
-          <DynamicError :errors="errors" />
+          <DynamicError :errors="visibleErrors" />
         </div>
       `,
   ...customControl

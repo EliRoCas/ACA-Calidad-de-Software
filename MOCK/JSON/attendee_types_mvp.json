@@ -1,0 +1,10 @@
+{
+  "data": {
+    "items": [
+      { "attendee_type_id": "Aspirante", "attendee_type_name": "Aspirante" },
+      { "attendee_type_id": "Padre de familia", "attendee_type_name": "Padre de familia" },
+      { "attendee_type_id": "Docente", "attendee_type_name": "Docente" },
+      { "attendee_type_id": "Visitante", "attendee_type_name": "Visitante" }
+    ]
+  }
+}

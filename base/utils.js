@@ -24,7 +24,7 @@ function resolvePath(obj, path) {
 function resolveTemplate(template, model = {}) {
   if (typeof template !== "string") return template;
 
-  return template.replace(/\{\{\s*([^}]+)\s*\}\}/g, (_, path) => {
+  return template.replaceAll(/\{\{\s*([^}]+)\s*\}\}/g, (_, path) => {
     const value = resolvePath(model, path.trim());
 
     if (value === undefined || value === null) {
@@ -86,7 +86,7 @@ function evaluateRule(rule, model = {}) {
 function evaluateLegacyExpression(condition, model = {}) {
   let expression = String(condition ?? "true");
 
-  expression = expression.replace(/\{\{\s*([^}]+)\s*\}\}/g, (_, path) => {
+  expression = expression.replaceAll(/\{\{\s*([^}]+)\s*\}\}/g, (_, path) => {
     const value = resolvePath(model, path.trim());
     return JSON.stringify(value);
   });
@@ -177,12 +177,20 @@ function shouldIncludeInPayload(field) {
   return field.payload?.include !== false;
 }
 
-function isUiHidden(field) {
-  return field.hidden === true || field.ui?.hidden === true;
+function isFieldHidden(field, model = {}) {
+  const hasStaticHidden = field.hidden === true || field.ui?.hidden === true;
+  const hiddenWhen = field.ui?.hiddenWhen;
+  const visibleWhen = field.ui?.visibleWhen;
+
+  return (
+    hasStaticHidden ||
+    (hiddenWhen ? evaluateCondition(hiddenWhen, model) : false) ||
+    (visibleWhen ? !evaluateCondition(visibleWhen, model) : false)
+  );
 }
 
-function isHiddenPayloadField(field) {
-  return field.type === "hidden" || isUiHidden(field);
+function isHiddenPayloadField(field, model = {}) {
+  return field.type === "hidden" || isFieldHidden(field, model);
 }
 
 function buildFieldValues(fields, model, filter = () => true) {
@@ -208,16 +216,71 @@ function extractTrackingValuesFromLocation(locationSearch = "", defaults = {}) {
 function buildSubmitPayload(schema, model, options = {}) {
   const formFields = collectFormFields(schema);
   const submittedAt = options.submittedAt ?? new Date().toISOString();
-  const locationSearch = options.locationSearch ?? globalThis.window?.location?.search ?? "";
+  const locationSearch =
+    options.locationSearch ?? globalThis.window?.location?.search ?? "";
   const trackingDefaults = options.trackingDefaults ?? schema?.tracking ?? {};
 
   return {
     formId: schema?.id ?? null,
     submittedAt,
-    values: buildFieldValues(formFields, model, (field) => !isHiddenPayloadField(field)),
-    hiddenFields: buildFieldValues(formFields, model, isHiddenPayloadField),
+    values: buildFieldValues(
+      formFields,
+      model,
+      (field) => !isHiddenPayloadField(field, model),
+    ),
+    hiddenFields: buildFieldValues(
+      formFields,
+      model,
+      (field) => isHiddenPayloadField(field, model),
+    ),
     tracking: extractTrackingValuesFromLocation(locationSearch, trackingDefaults),
   };
+}
+
+function getSubmitErrors(schema, model) {
+  return collectFormFields(schema)
+    .filter((field) => !isFieldHidden(field, model))
+    .flatMap((field) =>
+      ValidateGlobal(field, model).map((error) => ({
+        fieldId: field.id,
+        label: field.label ?? field.id,
+        ...error,
+      })),
+    );
+}
+
+function flattenSubmitPayload(payload) {
+  return {
+    ...(payload?.values ?? {}),
+    ...(payload?.hiddenFields ?? {}),
+    ...(payload?.tracking ?? {}),
+  };
+}
+
+function buildGoogleFormPayload(schema, payload) {
+  const entries = schema?.submit?.google?.entries ?? {};
+  const values = flattenSubmitPayload(payload);
+  const formBody = new URLSearchParams();
+
+  Object.entries(entries).forEach(([payloadName, entryName]) => {
+    formBody.append(entryName, values[payloadName] ?? "");
+  });
+
+  return formBody;
+}
+
+async function submitGoogleForm(schema, payload) {
+  const endpoint = schema?.submit?.google?.endpoint;
+
+  if (!endpoint) {
+    throw new Error("Google Forms endpoint is not configured.");
+  }
+
+  await fetch(endpoint, {
+    method: "POST",
+    mode: "no-cors",
+    body: buildGoogleFormPayload(schema, payload),
+  });
 }
 
 const loadDataSource = async (field, model = {}) => {

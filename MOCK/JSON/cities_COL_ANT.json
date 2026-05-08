@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "city_id": "05001", "city_name": "Medellin" },
+      { "city_id": "05088", "city_name": "Bello" },
+      { "city_id": "05266", "city_name": "Envigado" }
+    ]
+  }
+}

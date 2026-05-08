@@ -1,0 +1,10 @@
+{
+  "data": {
+    "items": [
+      { "doc_type_id": "CC", "doc_type_name": "Cedula de ciudadania" },
+      { "doc_type_id": "TI", "doc_type_name": "Tarjeta de identidad" },
+      { "doc_type_id": "CE", "doc_type_name": "Cedula de extranjeria" },
+      { "doc_type_id": "PA", "doc_type_name": "Pasaporte" }
+    ]
+  }
+}

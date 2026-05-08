@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "program_id": "BIOLG", "program_name": "Biologia" },
+      { "program_id": "CIDAT", "program_name": "Ciencia de Datos" },
+      { "program_id": "MATEM", "program_name": "Matematicas" }
+    ]
+  }
+}

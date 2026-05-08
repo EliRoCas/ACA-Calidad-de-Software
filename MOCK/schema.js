@@ -1,345 +1,366 @@
 const SCHEMA = {
-    "id": "VSD0",
-    "label": "Section container",
-    "type": "section-container",
-    "hidden": false,
-    "tracking": {
-        "utm_source": "mock_config_source",
-        "utm_medium": "",
-        "utm_campaign": "",
-        "utm_subsource": "",
-        "articulo": "",
-        "nevento": "Mock Event",
-        "fevento": ""
+  id: "marketing_mvp",
+  label: "Marketing MVP",
+  type: "section-container",
+  class: "center",
+  tracking: {
+    utm_source: "marketing_mvp",
+    utm_medium: "",
+    utm_campaign: "",
+    utm_subsource: "",
+    articulo: "",
+    nevento: "Marketing MVP",
+    fevento: "",
+  },
+  submit: {
+    google: {
+      endpoint:
+        "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfw40ns2QRcxUkOCcr_TLcW1asygUr9yENC5wKubVRAxWZHSg/formResponse",
+      entries: {
+        first_name: "entry.80860134",
+        last_name: "entry.202371310",
+        tipo_doc: "entry.421600673",
+        numero_doc: "entry.343354658",
+        email: "entry.1455277869",
+        prefijoCel: "entry.1157769341",
+        mobile: "entry.1315389908",
+        country_residence: "entry.2050709377",
+        department: "entry.2099415078",
+        city: "entry.338292013",
+        tipo_asistente: "entry.1595196505",
+        nivelacademico: "entry.13819069",
+        facultad: "entry.935513833",
+        programa_principal: "entry.338019176",
+        periodo_esperado: "entry.1914126671",
+        utm_source: "entry.1520118521",
+        utm_subsource: "entry.1595817695",
+        utm_medium: "entry.581608949",
+        utm_campaign: "entry.1956432705",
+        fevento: "entry.1760775936",
+        nevento: "entry.2113694561",
+      },
     },
-    "children": [
-        {
-            "id": "mock_hidden_event_id",
-            "type": "hidden",
-            "defaultValue": "EVT-MOCK-001",
-            "payload": {
-                "name": "event_id"
-            }
+  },
+  children: [
+    {
+      id: "utm_source",
+      type: "hidden",
+      defaultValue: "marketing_mvp",
+      payload: { name: "utm_source" },
+    },
+    {
+      id: "utm_subsource",
+      type: "hidden",
+      defaultValue: "",
+      payload: { name: "utm_subsource" },
+    },
+    {
+      id: "utm_campaign",
+      type: "hidden",
+      defaultValue: "",
+      payload: { name: "utm_campaign" },
+    },
+    {
+      id: "utm_medium",
+      type: "hidden",
+      defaultValue: "",
+      payload: { name: "utm_medium" },
+    },
+    {
+      id: "fevento",
+      type: "hidden",
+      defaultValue: "",
+      payload: { name: "fevento" },
+    },
+    {
+      id: "nevento",
+      type: "hidden",
+      defaultValue: "Marketing MVP",
+      payload: { name: "nevento" },
+    },
+    {
+      id: "first_name",
+      label: "Nombre",
+      type: "text",
+      order: 10,
+      class: "col-6",
+      payload: { name: "first_name" },
+      validations: [{ type: "required", message: "El nombre es obligatorio" }],
+    },
+    {
+      id: "last_name",
+      label: "Apellido",
+      type: "text",
+      order: 20,
+      class: "col-6",
+      payload: { name: "last_name" },
+      validations: [{ type: "required", message: "El apellido es obligatorio" }],
+    },
+    {
+      id: "tipo_doc",
+      label: "Tipo de documento",
+      type: "select",
+      order: 30,
+      class: "col-6",
+      payload: { name: "tipo_doc" },
+      dataSource: {
+        url: "./MOCK/JSON/doc_type.json",
+        root: "data.items",
+        map: {
+          value: "doc_type_id",
+          label: "doc_type_name",
         },
-        {
-            "id": "mock_ui_hidden_source",
-            "label": "UI hidden source",
-            "type": "text",
-            "defaultValue": "hidden-from-ui",
-            "ui": {
-                "hidden": true
-            },
-            "payload": {
-                "name": "ui_hidden_source"
-            }
+      },
+      validations: [
+        { type: "required", message: "Selecciona un tipo de documento" },
+      ],
+    },
+    {
+      id: "numero_doc",
+      label: "Numero de documento",
+      type: "text",
+      order: 40,
+      class: "col-6",
+      payload: { name: "numero_doc" },
+      validations: [
+        { type: "required", message: "El numero de documento es obligatorio" },
+      ],
+    },
+    {
+      id: "prefijoCel",
+      label: "Prefijo",
+      type: "select",
+      order: 50,
+      class: "col-4",
+      defaultValue: "57",
+      payload: { name: "prefijoCel" },
+      dataSource: {
+        url: "./MOCK/JSON/codigos_pais.json",
+        map: {
+          value: "phoneCode",
+          label: "nameES",
         },
-        {
-            "id": "mock_internal_note",
-            "label": "Internal note excluded from payload",
-            "type": "text",
-            "defaultValue": "internal-only",
-            "payload": {
-                "include": false
-            }
+      },
+      validations: [{ type: "required", message: "Selecciona un prefijo" }],
+    },
+    {
+      id: "mobile",
+      label: "Telefono",
+      type: "text",
+      order: 60,
+      class: "col-8",
+      payload: { name: "mobile" },
+      validations: [{ type: "required", message: "El telefono es obligatorio" }],
+    },
+    {
+      id: "email",
+      label: "Email",
+      type: "text",
+      order: 70,
+      class: "col-12",
+      payload: { name: "email" },
+      validations: [{ type: "required", message: "El email es obligatorio" }],
+    },
+    {
+      id: "country_residence",
+      label: "Pais de residencia",
+      type: "select",
+      order: 80,
+      class: "col-12",
+      payload: { name: "country_residence" },
+      dataSource: {
+        url: "./MOCK/JSON/countries_mvp.json",
+        root: "data.items",
+        map: {
+          value: "country_id",
+          label: "country_name",
         },
-        {
-            "id": "birthday",
-            "label": "Birthday",
-            "type": "date",
-            "validations": [
-                {
-                    "type": "required",
-                    "message": "Date is required"
-                }
-            ]
+      },
+      validations: [{ type: "required", message: "Selecciona un pais" }],
+    },
+    {
+      id: "department",
+      label: "Departamento",
+      type: "select",
+      order: 90,
+      class: "col-6",
+      dependsOn: "country_residence",
+      ui: {
+        visibleWhen: {
+          field: "country_residence",
+          operator: "equals",
+          value: "COL",
         },
-        {
-            "id": "VSD7",
-            "label": "Surface Control Type (VSD)",
-            "type": "text",
-            "readonly": false,
-            "defaultValue": false,
-            "validations": [
-                {
-                    "type": "required",
-                    "message": "field is required"
-                },
-                {
-                    "type": "condition",
-                    "condition": false,
-                    "message": "6 > 6"
-                }
-            ]
+      },
+      payload: { name: "department" },
+      dataSource: {
+        url: "./MOCK/JSON/departments_{{country_residence}}.json",
+        root: "data.items",
+        map: {
+          value: "department_id",
+          label: "department_name",
         },
+      },
+      validations: [
         {
-            "id": "VSD3",
-            "label": "Surface Number",
-            "type": "number",
-            "defaultValue": 0,
-            "readonly": false
+          type: "requiredIf",
+          condition: {
+            field: "country_residence",
+            operator: "equals",
+            value: "COL",
+          },
+          message: "Selecciona un departamento",
         },
-        {
-            "id": "SWB",
-            "label": "Surface Control Type (SWB)",
-            "type": "radio",
-            "defaultValue": false,
-            "options": [
-                {
-                    "value": true,
-                    "label": "Yes"
-                },
-                {
-                    "value": false,
-                    "label": "No"
-                }
-            ],
-            "readonly": false
+      ],
+    },
+    {
+      id: "city",
+      label: "Ciudad",
+      type: "select",
+      order: 100,
+      class: "col-6",
+      dependsOn: ["country_residence", "department"],
+      ui: {
+        visibleWhen: {
+          field: "country_residence",
+          operator: "equals",
+          value: "COL",
         },
-        {
-            "id": "Running_Frequency",
-            "label": "Running Frequency",
-            "type": "number",
-            "class": "col-4",
-            "defaultValue": 10001,
-            "validations": [
-                {
-                    "type": "required",
-                    "message": "new required field"
-                },
-                {
-                    "type": "range",
-                    "message": "Running Frequency must be between 0.00 and 10000.00",
-                    "params": [
-                        0,
-                        10000
-                    ]
-                }
-            ],
-            "readonly": false
+      },
+      payload: { name: "city" },
+      dataSource: {
+        url: "./MOCK/JSON/cities_{{country_residence}}_{{department}}.json",
+        root: "data.items",
+        map: {
+          value: "city_id",
+          label: "city_name",
         },
+      },
+      validations: [
         {
-            "id": "VSD_Base_Frequency",
-            "label": "VSD Base Frequency",
-            "type": "number",
-            "defaultValue": 0,
-            "class": "col-4",
-            "validations": [
-                {
-                    "type": "range",
-                    "message": "Running Frequency must be between 0.00 and 10000.00",
-                    "params": [
-                        0,
-                        10000
-                    ]
-                }
-            ],
-            "readonly": false
+          type: "requiredIf",
+          condition: {
+            field: "country_residence",
+            operator: "equals",
+            value: "COL",
+          },
+          message: "Selecciona una ciudad",
         },
-        {
-            "id": "VSD_Motor_Direction",
-            "label": "VSD Motor Direction",
-            "type": "select",
-            "class": "col-4",
-            "defaultValue": 2,
-            "options": [
-                {
-                    "value": 1,
-                    "label": "Option 1"
-                },
-                {
-                    "value": 2,
-                    "label": "Option 2"
-                },
-                {
-                    "value": 3,
-                    "label": "Option 3"
-                }
-            ],
-            "readonly": false
+      ],
+    },
+    {
+      id: "tipo_asistente",
+      label: "Tipo de asistente",
+      type: "select",
+      order: 110,
+      class: "col-12",
+      payload: { name: "tipo_asistente" },
+      dataSource: {
+        url: "./MOCK/JSON/attendee_types_mvp.json",
+        root: "data.items",
+        map: {
+          value: "attendee_type_id",
+          label: "attendee_type_name",
         },
-        {
-            "id": "Motor_Controller_Description",
-            "label": "Motor Controller Description",
-            "type": "text",
-            "order": -1,
-            "format": "°C",
-            "validations": [
-                {
-                    "type": "required",
-                    "message": "Motor Controller Description is required"
-                },
-                {
-                    "type": "maxLength",
-                    "message": "Max length is 5",
-                    "params": [
-                        5
-                    ]
-                }
-            ],
-            "readonly": false
+      },
+      validations: [
+        { type: "required", message: "Selecciona un tipo de asistente" },
+      ],
+    },
+    {
+      id: "nivelacademico",
+      label: "Nivel academico",
+      type: "select",
+      order: 120,
+      class: "col-12",
+      payload: { name: "nivelacademico" },
+      dataSource: {
+        url: "./MOCK/JSON/academic_levels_mvp.json",
+        root: "data.items",
+        map: {
+          value: "level_id",
+          label: "level_name",
         },
+      },
+      validations: [
+        { type: "required", message: "Selecciona un nivel academico" },
+      ],
+    },
+    {
+      id: "facultad",
+      label: "Facultad",
+      type: "select",
+      order: 130,
+      class: "col-12",
+      dependsOn: "nivelacademico",
+      payload: { name: "facultad" },
+      dataSource: {
+        url: "./MOCK/JSON/faculties_{{nivelacademico}}.json",
+        root: "data.items",
+        map: {
+          value: "faculty_id",
+          label: "faculty_name",
+        },
+      },
+      validations: [{ type: "required", message: "Selecciona una facultad" }],
+    },
+    {
+      id: "programa_principal",
+      label: "Programa",
+      type: "select",
+      order: 140,
+      class: "col-12",
+      dependsOn: ["nivelacademico", "facultad"],
+      payload: { name: "programa_principal" },
+      dataSource: {
+        url: "./MOCK/JSON/programs_{{nivelacademico}}_{{facultad}}.json",
+        root: "data.items",
+        map: {
+          value: "program_id",
+          label: "program_name",
+        },
+      },
+      validations: [{ type: "required", message: "Selecciona un programa" }],
+    },
+    {
+      id: "periodo_esperado",
+      label: "Periodo esperado",
+      type: "select",
+      order: 150,
+      class: "col-12",
+      dependsOn: "nivelacademico",
+      payload: { name: "periodo_esperado" },
+      dataSource: {
+        url: "./MOCK/JSON/periods_{{nivelacademico}}.json",
+        root: "data.items",
+        map: {
+          value: "period_id",
+          label: "period_name",
+        },
+      },
+      validations: [
+        { type: "required", message: "Selecciona un periodo esperado" },
+      ],
+    },
+    {
+      id: "data_authorization",
+      label: "Autorizo el tratamiento de mis datos personales",
+      type: "checkbox",
+      order: 160,
+      class: "col-12",
+      defaultValue: false,
+      payload: { name: "data_authorization" },
+      validations: [
         {
-            "id": "additional_info",
-            "label": "Additional info",
-            "type": "section-container",
-            "children": [
-                {
-                    "id": "additional_info_left",
-                    "type": "section-container",
-                    "class": "col-12 col-md-6 border-red",
-                    "children": [
-                        {
-                            "id": "additional_info_uuid",
-                            "label": "Id",
-                            "type": "text",
-                            "defaultValue": "0b806809-ae0f-4758-ae03-2c7491fcf8e6"
-                        },
-                        {
-                            "id": "customer_type",
-                            "label": "Customer Type",
-                            "type": "select",
-                            "defaultValue": "EP",
-                            "order": 1,
-                            "options": [
-                                {
-                                    "label": "Individual",
-                                    "value": "PN"
-                                },
-                                {
-                                    "label": "Company",
-                                    "value": "EP"
-                                }
-                            ],
-                            "triggers": [
-                                {
-                                    "action": "setValue",
-                                    "target": "credit_limit",
-                                    "value": 5000,
-                                    "condition": {
-                                        "field": "customer_type",
-                                        "operator": "equals",
-                                        "value": "PN"
-                                    }
-                                }
-                            ],
-                            "validations": [
-                                {
-                                    "type": "required",
-                                    "message": "Customer type"
-                                }
-                            ]
-                        },
-                        {
-                            "id": "country_origin",
-                            "label": "Country",
-                            "type": "select",
-                            "order": 2,
-                            "defaultValue": "",
-                            "class": "col-6",
-                            "dataSource": {
-                                "url": "./MOCK/countries.json",
-                                "map": {
-                                    "value": "cca2",
-                                    "label": "name.common"
-                                }
-                            }
-                        },
-                        {
-                            "id": "city_origin",
-                            "label": "City",
-                            "type": "select",
-                            "order": 3,
-                            "class": "col-6",
-                            "dependsOn": "country_origin",
-                            "dataSource": {
-                                "url": "./MOCK/cities.json?iso={{country_origin}}",
-                                "root": "data.items",
-                                "map": {
-                                    "value": "city_id",
-                                    "label": "city_name"
-                                }
-                            }
-                        },
-                        {
-                            "id": "loan_amount",
-                            "label": "Requested Loan Amount",
-                            "type": "number",
-                            "order": 5,
-                            "validations": [
-                                {
-                                    "type": "condition",
-                                    "condition": {
-                                        "field": "loan_amount",
-                                        "operator": "lessThanOrEqualField",
-                                        "otherField": "credit_limit"
-                                    },
-                                    "message": "The amount cannot exceed your credit limit"
-                                },
-                                {
-                                    "type": "required",
-                                    "message": "Loan Amount is required"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": "additional_info_right",
-                    "type": "section-container",
-                    "class": "col-12 col-md-6 border-red",
-                    "children": [
-                        {
-                            "id": "credit_limit",
-                            "label": "Assigned Credit Limit",
-                            "type": "number",
-                            "order": 40,
-                            "defaultValue": 100,
-                            "validations": [
-                                {
-                                    "type": "requiredIf",
-                                    "condition": {
-                                        "field": "customer_type",
-                                        "operator": "equals",
-                                        "value": "EP"
-                                    },
-                                    "message": "Credit limit is required when Company is selected"
-                                }
-                            ]
-                        },
-                        {
-                            "id": "emails",
-                            "label": "Allow receive emails?",
-                            "type": "checkbox",
-                            "defaultValue": false,
-                            "order": 10
-                        },
-                        {
-                            "id": "advertising",
-                            "label": "Allow receive advertising?",
-                            "type": "checkbox",
-                            "defaultValue": "",
-                            "order": 10
-                        },
-                        {
-                            "id": "preferred_method",
-                            "label": "Preferred method",
-                            "type": "radio",
-                            "defaultValue": "EF",
-                            "order": 11,
-                            "options": [
-                                {
-                                    "label": "Effective",
-                                    "value": "EF"
-                                },
-                                {
-                                    "label": "Credit card",
-                                    "value": "CC"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
+          type: "condition",
+          condition: {
+            field: "data_authorization",
+            operator: "equals",
+            value: true,
+          },
+          message: "Debes autorizar el tratamiento de datos personales",
+        },
+      ],
+    },
+  ],
+};

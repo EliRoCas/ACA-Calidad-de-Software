@@ -13,7 +13,13 @@ const DynamicFormPlugin = {
         app.component("hidden", DynamicHidden);
 
         const model = Vue.reactive({});
+        const validationState = Vue.reactive({
+            submitAttempted: false,
+            touched: {},
+        });
+
         app.provide("model", model);
+        app.provide("validationState", validationState);
 
         // app.config.globalProperties.$model = model;
     }

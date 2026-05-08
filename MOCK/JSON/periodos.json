@@ -1,0 +1,26 @@
+{
+  "PREG": {
+    "1 semestre de 2026": "PREG2610",
+    "2 semestre de 2026": "PREG2630",
+    "1 semestre de 2027": "PREG2710",
+    "2 semestre de 2027": "PREG2730"
+  },
+  "GRAD": {
+    "1 semestre de 2026": "GRAD2610",
+    "2 semestre de 2026": "GRAD2630",
+    "1 semestre de 2027": "GRAD2710",
+    "2 semestre de 2027": "GRAD2730"
+  },
+  "ECLE": {
+    "1 semestre de 2026": "ECLE2610",
+    "2 semestre de 2026": "ECLE2630",
+    "1 semestre de 2027": "ECLE2710",
+    "2 semestre de 2027": "ECLE2730"
+  },
+  "ETDH": {
+    "1 semestre de 2026": "ETDH2610",
+    "2 semestre de 2026": "ETDH2630",
+    "1 semestre de 2027": "ETDH2710",
+    "2 semestre de 2027": "ETDH2730"
+  }
+}

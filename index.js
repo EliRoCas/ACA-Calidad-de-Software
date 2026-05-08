@@ -5,14 +5,57 @@ const vueApp = createApp({
     const schema = SCHEMA;
 
     const model = Vue.inject("model");
+    const validationState = Vue.inject("validationState");
     const payload = ref(null);
+    const submitErrors = ref([]);
+    const isSubmitting = ref(false);
+    const submitStatus = ref("");
 
-    function submit() {
+    async function submit() {
+      validationState.submitAttempted = true;
+      submitErrors.value = getSubmitErrors(schema, Vue.toRaw(model));
+
+      if (submitErrors.value.length > 0) {
+        submitStatus.value = "Revisa los campos obligatorios antes de enviar.";
+        return;
+      }
+
       const nextPayload = buildSubmitPayload(schema, Vue.toRaw(model));
       payload.value = nextPayload;
-      console.log("MOCK SUBMIT PAYLOAD:", nextPayload);
-      alert("Mock submit ready. Check console or the payload preview.");
+
+      console.log("MVP SUBMIT PAYLOAD:", nextPayload);
+      console.log(
+        "GOOGLE FORM PAYLOAD:",
+        Object.fromEntries(buildGoogleFormPayload(schema, nextPayload)),
+      );
+
+      isSubmitting.value = true;
+      submitStatus.value = "Enviando MVP a Google Forms...";
+
+      try {
+        await submitGoogleForm(schema, nextPayload);
+        submitStatus.value = "Envio MVP realizado. Revisa Google Forms.";
+      } catch (error) {
+        console.error("Google Forms submit failed:", error);
+        submitStatus.value = "No fue posible enviar a Google Forms.";
+      } finally {
+        isSubmitting.value = false;
+      }
     }
+
+    watch(
+      model,
+      () => {
+        if (!validationState.submitAttempted) return;
+
+        submitErrors.value = getSubmitErrors(schema, Vue.toRaw(model));
+
+        if (submitErrors.value.length === 0 && submitStatus.value.includes("Revisa")) {
+          submitStatus.value = "";
+        }
+      },
+      { deep: true },
+    );
 
     const prettyValues = computed(() => JSON.stringify(model, null, 2));
     const prettyPayload = computed(() => JSON.stringify(payload.value, null, 2));
@@ -20,6 +63,9 @@ const vueApp = createApp({
     return {
       schema,
       submit,
+      submitErrors,
+      isSubmitting,
+      submitStatus,
       prettyValues,
       prettyPayload,
     };
@@ -28,8 +74,18 @@ const vueApp = createApp({
         <DynamicSectionContainer :field="schema" />
 
         <div class="actions">
-            <button @click="submit">Submit</button>
+            <button @click="submit" :disabled="isSubmitting">
+              {{ isSubmitting ? 'Enviando...' : 'Enviar MVP' }}
+            </button>
         </div>
+
+        <p v-if="submitStatus">{{ submitStatus }}</p>
+
+        <ul v-if="submitErrors.length">
+          <li v-for="error in submitErrors" :key="error.fieldId + error.type">
+            {{ error.label }}: {{ error.message }}
+          </li>
+        </ul>
 
         <pre>{{ prettyValues }}</pre>
 

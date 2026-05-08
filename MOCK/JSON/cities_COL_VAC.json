@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "city_id": "76001", "city_name": "Cali" },
+      { "city_id": "76109", "city_name": "Buenaventura" },
+      { "city_id": "76892", "city_name": "Yumbo" }
+    ]
+  }
+}

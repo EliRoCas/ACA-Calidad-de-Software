@@ -1,0 +1,9 @@
+{
+  "data": {
+    "items": [
+      { "program_id": "ISIST", "program_name": "Ingenieria de Sistemas" },
+      { "program_id": "IINDS", "program_name": "Ingenieria Industrial" },
+      { "program_id": "ICIVL", "program_name": "Ingenieria Civil" }
+    ]
+  }
+}

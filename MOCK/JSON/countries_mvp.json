@@ -1,0 +1,10 @@
+{
+  "data": {
+    "items": [
+      { "country_id": "COL", "country_name": "Colombia" },
+      { "country_id": "USA", "country_name": "Estados Unidos" },
+      { "country_id": "MEX", "country_name": "Mexico" },
+      { "country_id": "ESP", "country_name": "Espana" }
+    ]
+  }
+}
